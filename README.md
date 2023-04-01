@@ -1,6 +1,10 @@
 # GiphyExplorer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
+## Development environment
+
+Angular version: 15.2.4
+<br />
+Node version: 16.19.1
 
 ## Development server
 
