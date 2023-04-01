@@ -1,0 +1,21 @@
+<ng-container *ngIf="{value: isDarkMode$ | async} as isDarkMode">
+    <div class="backdrop-blur-sm h-full w-full flex justify-center items-center flex-col test"
+        [ngClass]="{'page-not-found__background--dark': isDarkMode.value, 'page-not-found__background--light': !isDarkMode.value }">
+        <div class="text-8xl font-bold text-[var(--primary-color)] mb-5">404</div>
+        <div class="text-4xl font-bold mb-10">PAGE NOT FOUND</div>
+        <div class="flex justify-between items-center">
+            <p-button styleClass="p-button-rounded p-button-secondary flex items-center"
+                (onClick)="onClickGoBackHomepage()">
+                <i class="pi pi-arrow-left text-lg font-bold"></i>
+                <span class="font-bold text-lg ml-3 capitalize">go back to homepage</span>
+            </p-button>
+            <div class="text-2xl font-bold mx-5">
+                OR
+            </div>
+            <p-button styleClass="p-button-rounded p-button-help flex items-center" (onClick)="onClickExploreNow()">
+                <span class="font-bold text-lg mr-3 capitalize">explore now</span>
+                <i class="pi pi-arrow-right text-lg font-bold"></i>
+            </p-button>
+        </div>
+    </div>
+</ng-container>

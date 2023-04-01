@@ -1,0 +1,104 @@
+<!-- GIF Dataview Item Template (display when have data) -->
+<ng-template #gifList let-gifs="gifs" let-isDarkMode="isDarkMode" let-isLoading="isLoading">
+    <div class="w-full h-full relative">
+        <div *ngIf="isLoading" class="w-full h-full absolute top-0 left-0 z-50 flex justify-center items-center"
+            [ngClass]="{'loading-overlay--dark':isDarkMode, 'loading-overlay--light': !isDarkMode}">
+            <!-- <i class="pi pi-spin pi-spinner" [style]="{ color: 'var(--primary-color)', fontSize: '2.5rem'}"></i> -->
+            <p-progressSpinner styleClass="w-2rem h-2rem" strokeWidth="5.5"
+                animationDuration="0.5s"></p-progressSpinner>
+        </div>
+        <p-accordion>
+            <p-dataView #dv [value]="gifs" [lazy]="true">
+                <ng-template let-gif pTemplate="listItem">
+                    <div class="!border-0 mx-[1px] my-[1px]">
+                        <p-accordionTab>
+                            <ng-template pTemplate="header">
+                                <div class="flex align-items-center justify-center w-[200px] h-[200px]">
+                                    <img [src]="gif.images.fixed_width.url" [alt]="gif.title" loading="lazy">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="content">
+                                <div class="divide-y">
+                                    <div class="text-base py-2">
+                                        <span class="font-semibold">Title:</span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span class="text-sm">{{gif.title}}</span>
+                                    </div>
+                                    <div class="text-base py-2">
+                                        <span class="font-semibold">Rating:</span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span class="uppercase text-sm">{{gif.rating}}</span>
+                                    </div>
+                                    <div class="text-base py-2">
+                                        <span class="font-semibold">Username:</span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span class="uppercase text-sm">{{gif.username}}</span>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-accordionTab>
+                    </div>
+                </ng-template>
+            </p-dataView>
+        </p-accordion>
+    </div>
+</ng-template>
+
+<!-- GIF Dataview Item Template (display when data is empty) -->
+<ng-template #gifListEmpty let-isDarkMode="isDarkMode" let-isLoading="isLoading">
+    <div class="w-full h-full relative">
+        <div *ngIf="isLoading" class="w-full h-full absolute top-0 left-0 z-50 flex justify-center items-center"
+            [ngClass]="{'loading-overlay--dark':isDarkMode, 'loading-overlay--light': !isDarkMode}">
+            <!-- <i class="pi pi-spin pi-spinner" [style]="{ color: 'var(--primary-color)', fontSize: '2.5rem'}"></i> -->
+            <p-progressSpinner styleClass="w-2rem h-2rem" strokeWidth="5.5"
+                animationDuration="0.5s"></p-progressSpinner>
+        </div>
+        <div class="w-full h-full text-center italic font-medium text-lg">
+            -- No GIF Found ! --
+        </div>
+    </div>
+</ng-template>
+<!-- End of template section -->
+
+<!-- Subscribe to isDarkMode$ Observable -->
+<ng-container *ngIf="{ value: isDarkMode$ | async } as isDarkMode">
+    <!-- Subscribe to isSearching$ Observable -->
+    <ng-container *ngIf="{ value: isSearching$ | async } as isLoading">
+        <p-tabView styleClass="h-full flex flex-col" [(activeIndex)]="activeIndex">
+            <p-tabPanel [cache]="true">
+                <!-- Trending Tab header -->
+                <ng-template pTemplate="header">
+                    <div class="w-full flex justify-center items-center">
+                        <i class="pi pi-chart-line mr-3 text-xl"></i>
+                        <span class="text-xl font-semibold">Trending</span>
+                    </div>
+                </ng-template>
+
+                <!-- Trending Tab content -->
+                <div *ngIf="(trendingGifs$ | async) as trendingGifs" id="trendingTab" class="h-full overflow-y-auto" (scroll)="onInfiniteScrollTrendingTab($event)">
+                    <ng-container>
+                        <!-- Render Trending GIF Dataview -->
+                        <ng-container [ngTemplateOutlet]="trendingGifs.length > 0 ? gifList: gifListEmpty"
+                            [ngTemplateOutletContext]="{ gifs: trendingGifs, isDarkMode: isDarkMode.value, isLoading: isLoading.value }" />
+                    </ng-container>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel [cache]="true">
+                <!-- Tab header -->
+                <ng-template pTemplate="header">
+                    <div class="w-full flex justify-center items-center">
+                        <i class="pi pi-search mr-3 text-xl"></i>
+                        <span class="text-xl font-semibold">Search Result</span>
+                    </div>
+                </ng-template>
+
+                <!-- Trending Tab content -->
+                <div *ngIf="(searchGifs$ | async) as searchGifs" id="searchResultTab" class="h-full overflow-y-auto" (scroll)="onInfiniteScrollSearchResultTab($event)">
+                    <!-- Render Trending GIF Dataview -->
+                    <ng-container [ngTemplateOutlet]="searchGifs.length > 0 ? gifList : gifListEmpty"
+                        [ngTemplateOutletContext]="{ gifs: searchGifs, isDarkMode: isDarkMode.value, isLoading: isLoading.value }" />
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </ng-container>
+</ng-container>

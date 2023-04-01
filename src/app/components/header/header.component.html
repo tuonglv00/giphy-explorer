@@ -1,0 +1,41 @@
+<!-- Button when on dark mode -->
+<ng-template #darkMode>
+    <p-button styleClass="p-button-rounded p-button-text" (onClick)="onClickChangeTheme()">
+        <i class="pi pi-sun text-xl leading-none"></i>
+    </p-button>
+</ng-template>
+
+<!-- Button when on light mode -->
+<ng-template #lightMode>
+    <p-button styleClass="p-button-rounded p-button-text" (onClick)="onClickChangeTheme()">
+        <i class="pi pi-moon text-xl leading-none"></i>
+    </p-button>
+</ng-template>
+
+<!-- Button when on dark mode -->
+<ng-template #darkThemeLogo>
+    <p-image src="assets/logos/dark/giphy-explorer-2.dark.logo.svg" width="200"></p-image>
+</ng-template>
+
+<!-- Button when on light mode -->
+<ng-template #lightThemeLogo>
+    <p-image src="assets/logos/light/giphy-explorer-2.light.logo.svg" width="200"></p-image>
+</ng-template>
+
+<p-card styleClass="rounded-none">
+    <div class="flex flex-row justify-between items-center" *ngIf="{value: isDarkTheme$ | async} as isDarkTheme">
+        <!-- App logo section -->
+        <div class="h-full flex justify-center items-center cursor-pointer pl-5" (click)="onCLickPageLogo()">
+            <ng-container *ngIf="isDarkTheme.value, then darkThemeLogo, else lightThemeLogo" />
+        </div>
+
+        <div class="flex flex-row justify-between items-center" *ngIf="(routerChanged$ | async) as routerPath">
+            <a routerLink="/home" class="uppercase text-lg font-semibold mr-3 text-primary"
+                [ngClass]="(routerPath == '/home' || routerPath == '/') ? 'text-orange-500 underline': 'no-underline'">Home</a>
+            <a routerLink="/explorer" class="uppercase text-lg font-semibold mr-5"
+                [ngClass]="routerPath == '/explorer' ? 'text-orange-500 underline': 'no-underline'">Explorer</a>
+            <!-- Theme toggle button -->
+            <ng-container *ngIf="isDarkTheme.value, then darkMode, else lightMode" />
+        </div>
+    </div>
+</p-card>

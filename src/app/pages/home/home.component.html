@@ -1,0 +1,38 @@
+<ng-template #darkThemeLogo>
+    <div class="h-full flex justify-center items-center w-full">
+        <p-image src="assets/logos/dark/giphy-explorer-1.dark.logo.svg" alt="Image" width="500px"></p-image>
+    </div>
+</ng-template>
+
+<ng-template #lightThemeLogo>
+    <div class="h-full flex justify-center items-center w-full">
+        <p-image src="assets/logos/light/giphy-explorer-1.light.logo.svg" alt="Image" width="500px"></p-image>
+    </div>
+</ng-template>
+
+<ng-container *ngIf="{value: isDarkTheme$ | async} as isDarkTheme">
+    <div class="h-full w-full home-wrapper flex justify-center items-center">
+        <p-card
+            [styleClass]="dynamicCustomCardClassesGenerator(isDarkTheme.value)">
+            <div class="grid grid-cols-2 gap-4 h-full py-36 px-10">
+                <!--  Description section -->
+                <div class="h-full flex flex-col justify-center items-start">
+                    <h1 class="text-7xl mb-10 font-semibold">Giphy Explorer</h1>
+                    <p class="break-words text-xl font-normal mb-10">Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit.
+                        Atque neque distinctio nulla totam laborum ullam velit quibusdam sit, impedit dolorem, voluptas
+                        aspernatur! Cumque dolore vitae vel sint incidunt recusandae sequi.</p>
+                    <p-button styleClass="p-button-rounded p-button-secondary flex items-center"
+                        (onClick)="onClickExploreNow()">
+                        <span class="font-bold text-lg mr-3 capitalize">explore now</span>
+                        <i class="pi pi-arrow-right text-lg font-bold"></i>
+                    </p-button>
+                </div>
+    
+                <!--  Large Logo section -->
+                <ng-container *ngIf="isDarkTheme.value, then darkThemeLogo, else lightThemeLogo" />
+            </div>
+        </p-card>
+    </div>
+</ng-container>
+

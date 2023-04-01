@@ -1,0 +1,21 @@
+<div class="container mx-auto px-60 h-full">
+    <div class="px-20 h-full flex flex-col py-5">
+        <span class="p-input-icon-left w-full rounded-full relative mb-5">
+            <i class="pi pi-search ml-3"></i>
+            <input [formControl]="searchInput" type="text" pInputText class="p-inputtext-lg w-full rounded-full !px-14"
+                style="background-color: var(--surface-card);" />
+            <p-button icon="pi pi-times" (onClick)="onClickClearInput()"
+                styleClass="p-button-rounded p-button-danger p-button-text absolute top-1/2 translate-y-[-50%] right-2"></p-button>
+        </span>
+        <div class="gif-list-viewer-wrapper">
+            <p-card styleClass="h-full">
+                <gif-list-viewer></gif-list-viewer>
+            </p-card>
+        </div>
+    </div>
+</div>
+
+<!-- Subscribe to input value changed -->
+<ng-container>
+    {{input$ | async}}
+</ng-container>

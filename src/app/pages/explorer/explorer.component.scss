@@ -1,0 +1,17 @@
+:host::ng-deep {
+    .p-card-content {
+        padding-top: 0;
+        padding-bottom: 0;
+        height: 100%;
+    }
+
+    .p-card-body {
+        padding-top: 0;
+        height: 100%;
+    }
+}
+
+.gif-list-viewer-wrapper {
+    overflow-y: auto;
+    flex-basis: 100%;
+}

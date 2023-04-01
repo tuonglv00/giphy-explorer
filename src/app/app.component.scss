@@ -1,0 +1,16 @@
+.app-wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.body-wrapper {
+    background-image: url("/assets/backgrounds/background-1.png");
+    background-repeat: repeat-x;
+    background-size: cover;
+    background-color: var(--surface-ground);
+    flex-basis: 100%;
+    flex-grow: 0;
+    overflow: auto;
+}
