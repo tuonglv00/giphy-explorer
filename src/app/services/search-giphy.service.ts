@@ -70,6 +70,7 @@ export class SearchGiphyService extends BaseGiphy {
     this.isSearching$.next(stat);
   }
 
+  // Reset scrollbar position to the top when searching the next keyword
   public resetSearchResultTabScrollbarPosition(): void {
     let searchResultTabDOM = document.getElementById('searchResultTab');
     if (searchResultTabDOM) searchResultTabDOM.scrollTop = 0;

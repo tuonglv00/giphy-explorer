@@ -26,8 +26,6 @@ export class GifListViewerComponent {
   public activeIndex: number = 0;
   public isSearching$!: Observable<boolean>;
   public isDarkMode$!: Observable<boolean>;
-  public pTabPanel0DOM: any;
-  public pTabPanel1DOM: any;
 
   constructor(private trendingGiphyService: TrendingGiphyService,
     private searchGiphyService: SearchGiphyService,
@@ -46,14 +44,10 @@ export class GifListViewerComponent {
     this.searchGiphyService.loadMoreSearchGifsResults();
   }
 
+  // Hanlde infinite scroll for 'Search Results' tab
   public onInfiniteScrollTrendingTab(event: any) {
     event.stopPropagation();
-    let {
-      scrollTop,
-      scrollHeight,
-      clientHeight
-    } = event.target;
-
+    let { scrollTop, scrollHeight, clientHeight } = event.target;
     if (scrollTop + clientHeight >= scrollHeight - 10) {
       if (!this.trendingGiphyService.isFetchingNewTrendingGifs) {
         this.loadTrendingGifsLazy();
@@ -61,14 +55,10 @@ export class GifListViewerComponent {
     }
   }
 
+  // Hanlde infinite scroll for 'Search Results' tab
   public onInfiniteScrollSearchResultTab(event: any) {
     event.stopPropagation();
-    let {
-      scrollTop,
-      scrollHeight,
-      clientHeight
-    } = event.target;
-
+    let { scrollTop, scrollHeight, clientHeight } = event.target;
     if (scrollTop + clientHeight >= scrollHeight - 10) {
       if (!this.searchGiphyService.isFetchingGifsResults) {
         this.loadMoreGifsResultLazy();

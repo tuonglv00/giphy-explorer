@@ -29,7 +29,8 @@ export class ThemeService implements OnDestroy {
         }
       }
     });
-
+    
+    // Save theme mode to localStorage
     let themeMode = localStorage.getItem('themeMode');
     if (themeMode === 'light') {
       this.isDarkTheme$.next(false);
@@ -47,6 +48,7 @@ export class ThemeService implements OnDestroy {
     return this.isDarkTheme$.pipe();
   }
 
+  // Destroy all subscription
   public ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

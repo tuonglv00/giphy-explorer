@@ -16,10 +16,12 @@ export class HomeComponent {
     this.isDarkTheme$ = this.themeService.getIsDarkThemeObservable();
   }
 
+  // Navigate to page /explorer
   public onClickExploreNow(): void {
     this.router.navigate(['explorer']);
   }
 
+  // Generate classes base on current theme mode
   public dynamicCustomCardClassesGenerator(isDarkTheme: boolean | null): string {
     let baseClasses = "container mx-auto py-40 pl-16 backdrop-blur-sm shadow-md";
     if (isDarkTheme) {

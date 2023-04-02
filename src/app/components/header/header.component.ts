@@ -30,10 +30,12 @@ export class HeaderComponent {
       shareReplay({ bufferSize: 1, refCount: true }));
   }
 
+  // Change theme mode
   public onClickChangeTheme(): void {
     this.themeService.switchTheme();
   }
 
+  // Navigate to homepage when click on page logo
   public onCLickPageLogo(): void {
     this.router.navigate(['home']);
   }

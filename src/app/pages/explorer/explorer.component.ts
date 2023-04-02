@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { EMPTY, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { SearchGiphyService } from 'src/app/services/search-giphy.service';
 import { TrendingGiphyService } from 'src/app/services/trending-giphy.service';
@@ -13,7 +13,7 @@ import { TrendingGiphyService } from 'src/app/services/trending-giphy.service';
 })
 export class ExplorerComponent implements OnDestroy {
   public searchInput!: FormControl;
-  public input$: Observable<any> = EMPTY;
+  public input$: Observable<any>;
   public isSearchingGifs$: Observable<boolean>;
 
   constructor(private formBuilder: FormBuilder, private trendingGiphyService: TrendingGiphyService, private searchGiphyService: SearchGiphyService) {
